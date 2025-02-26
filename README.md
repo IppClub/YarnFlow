@@ -42,11 +42,11 @@ Narrator: Hi, I'm the narrator for this beginner's guide!
 Narrator: I'm talking to you with Yarn Spinner!
 Narrator: What do you think of all this, then?
 -> It's alright, I guess.
-	<<set $heart to $heart - 1>>
-	<<jump Alright>>
+  <<set $heart to $heart - 1>>
+  <<jump Alright>>
 -> It's great. I love it.
-	<<set $heart to $heart + 1>>
-	<<jump Love>>
+  <<set $heart to $heart + 1>>
+  <<jump Love>>
 ===
 
 title: Alright
@@ -55,11 +55,11 @@ title: Alright
 Narrator: Well, that's not very nice.
 Narrator: I'm trying my best here.
 -> Are you really? I don't think so.
-	<<set $heart to $heart - 1>>
-	<<jump Alright>>
+  <<set $heart to $heart - 1>>
+  <<jump Alright>>
 -> Oh, OK. I'm sorry.
-	<<set $heart to $heart + 1>>
-	<<jump Love>>
+  <<set $heart to $heart + 1>>
+  <<jump Love>>
 ===
 
 title: Love
@@ -68,79 +68,79 @@ title: Love
 Narrator: Oh, you're too kind.
 Narrator: I'm just doing my job.
 -> You're doing a great job.
-	<<set $heart to $heart + 2>>
-	Narrator: Oh, stop it, you.
-	Narrator: You're making me blush.
+  <<set $heart to $heart + 2>>
+  Narrator: Oh, stop it, you.
+  Narrator: You're making me blush.
 -> You're a natural.
-	<<set $heart to $heart + 3>>
-	Narrator: Oh, you.
-	Narrator: I'm but a humble narrator.
+  <<set $heart to $heart + 3>>
+  Narrator: Oh, you.
+  Narrator: I'm but a humble narrator.
 ===
 ]]
 
 local yarnflow = require("yarnflow")
 local variables = {}
 local commands = {
-	dot = function(count)
-		print(("."):rep(count))
-	end,
+  dot = function(count)
+    print(("."):rep(count))
+  end,
 }
 local runner = yarnflow(yarnCode, "Start", variables, commands)
 
 local function printHeart()
-	print("Heart: " .. variables.heart)
+  print("Heart: " .. variables.heart)
 end
 
 -- The advance function takes an optional integer representing the player's choice index.
 -- For the first call or when no choice is needed, we pass nil.
 local function advance(option)
-	-- First, we call runner:advance(option) to get the next part of the Yarn script.
-	-- This returns two values: an action type and a result.
-	local action, result = runner:advance(option)
-	-- Handle the result based on the action type.
-	if action == "Text" then
-		-- If the action is "Text", the result will be a TextResult object,
-		-- containing the text and any associated markers (e.g., character names).
-		-- Check the markers, extract the character's name (if present), and print the text.
-		local characterName = ""
-		local marks = result.marks
-		if marks then
-			for i = 1, #marks do
-				local mark = marks[i]
-				if mark.name == "char" then
-					characterName = mark.attrs.name .. ": "
-				end
-			end
-		end
-		print(characterName .. result.text)
-	elseif action == "Option" then
-		-- If the action is "Option", the result will be an OptionResult object,
-		-- containing one or more options. Iterate over the options and print them,
-		-- allowing the player to select them later.
-		for i, op in ipairs(result) do
-			if op then
-				print("[" .. tostring(i) .. "]: " .. op.text)
-			end
-		end
-	else
-		-- For other actions (like errors), print the result directly.
-		print(result)
-		-- If the action is nil, it means the story is finished.
-		if action == nil then
-			printHeart()
-			os.exit(0)
-		end
-	end
+  -- First, we call runner:advance(option) to get the next part of the Yarn script.
+  -- This returns two values: an action type and a result.
+  local action, result = runner:advance(option)
+  -- Handle the result based on the action type.
+  if action == "Text" then
+    -- If the action is "Text", the result will be a TextResult object,
+    -- containing the text and any associated markers (e.g., character names).
+    -- Check the markers, extract the character's name (if present), and print the text.
+    local characterName = ""
+    local marks = result.marks
+    if marks then
+      for i = 1, #marks do
+        local mark = marks[i]
+        if mark.name == "char" then
+          characterName = mark.attrs.name .. ": "
+        end
+      end
+    end
+    print(characterName .. result.text)
+  elseif action == "Option" then
+    -- If the action is "Option", the result will be an OptionResult object,
+    -- containing one or more options. Iterate over the options and print them,
+    -- allowing the player to select them later.
+    for i, op in ipairs(result) do
+      if op then
+        print("[" .. tostring(i) .. "]: " .. op.text)
+      end
+    end
+  else
+    -- For other actions (like errors), print the result directly.
+    print(result)
+    -- If the action is nil, it means the story is finished.
+    if action == nil then
+      printHeart()
+      os.exit(0)
+    end
+  end
 end
 
 -- Start the story
 advance()
 
 repeat
-	local input = io.read()
-	if input then
-		advance(tonumber(input))
-	end
+  local input = io.read()
+  if input then
+    advance(tonumber(input))
+  end
 until input == "exit"
 ```
 
