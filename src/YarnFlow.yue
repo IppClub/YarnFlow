@@ -23,7 +23,7 @@ rewriteError = (err, luaCode, title) ->
 extractYarnText = (yarnCode): nodes ->
 	nodes = []
 	count = 1
-	for body in yarnCode\gmatch "(.-)%s*===%s*(.-)$"
+	for body in yarnCode\gmatch "(.-)%s*===%s*[\n$]"
 		meta, nodeBody = body\match "(.-)%s*---%s*\n(.*)"
 		if meta and nodeBody
 			title = meta\match "title%s*:%s*(%S+)"

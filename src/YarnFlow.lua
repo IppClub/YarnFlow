@@ -31,7 +31,7 @@ local extractYarnText -- 23
 extractYarnText = function(yarnCode) -- 23
 	local nodes = { } -- 24
 	local count = 1 -- 25
-	for body in yarnCode:gmatch("(.-)%s*===%s*(.-)$") do -- 26
+	for body in yarnCode:gmatch("(.-)%s*===%s*[\n$]") do -- 26
 		local meta, nodeBody = body:match("(.-)%s*---%s*\n(.*)") -- 27
 		if meta and nodeBody then -- 28
 			local title = meta:match("title%s*:%s*(%S+)") -- 29
