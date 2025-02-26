@@ -1,0 +1,5 @@
+lib
+.DS_Store
+build.luarocks
+yarnflow-*.rock*
+!yarnflow-dev-1.rockspec

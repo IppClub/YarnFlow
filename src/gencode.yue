@@ -1,0 +1,26 @@
+#!yue -e
+
+for file in *["yarnflow.lua",]
+	text = ""
+	with io.open file
+		text = \read "*a"
+		\close!
+
+	indent = "\t"
+	count = 0
+	text = text\gsub "#!", "--#!"
+	bytes = indent .. string.gsub text, "(.)", (ch)->
+		sep = ""
+		count += 1
+		if count == 15
+			count = 0
+			sep = "\n" .. indent
+		string.format "%3u,%s", string.byte(ch), sep
+
+	name = file\gsub "%.", "_"
+	output = "#{name}.h"
+	with io.open output, "w"
+		\write "const char #{name}[] = {\n#{bytes}\n};"
+		\close!
+	
+	print "file \"#{output}\" generated."
