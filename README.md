@@ -79,7 +79,9 @@ Narrator: I'm just doing my job.
 ]]
 
 local yarnflow = require("yarnflow")
-local variables = {}
+local variables = {
+  heart = 0,
+}
 local commands = {
   dot = function(count)
     print(("."):rep(count))
