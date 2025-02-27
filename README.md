@@ -27,6 +27,14 @@ To install YarnFlow via LuaRocks:
 luarocks install yarnflow
 ```
 
+Or you can build `yarnflow.so` file with
+
+```bash
+make LUAI=/your-path/lua/include LUAL=/your-path/lua/lib
+```
+
+Then get the binary file from path `lib/yarnflow.so`.
+
 ## Usage
 
 1. Write your story using Yarn Spinner syntax.
