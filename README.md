@@ -10,6 +10,8 @@ YarnFlow is a sub-project developed and maintained as part of the Dora SSR open-
 
 For more information about the Dora SSR game engine project, please visit [Dora SSR on GitHub](https://github.com/ippclub/dora-ssr).
 
+And there is a visual novel framework built on top of Dora SSR showing the power of YarnFlow, you can visit [Dora Story](https://github.com/ippclub/dora-story) for more information.
+
 ## Key Features
 
 - **Simple Integration:** Easily integrate interactive narratives into your Lua projects.
