@@ -590,8 +590,6 @@ public:
 			Assignment |
 			Call) >> space >> ">>";
 
-		statement = Command | OptionGroup | Dialog;
-
 		empty_line_break = (
 			check_indent >> comment |
 			advance >> ensure(comment, pop_indent) |
@@ -604,8 +602,8 @@ public:
 
 		line = (
 			empty_line_break |
-			check_indent >> statement |
-			advance_match >> ensure(space >> (indentation_error | statement), pop_indent)
+			check_indent >> (Command | OptionGroup | Dialog) |
+			advance_match >> ensure(space >> (OptionGroup | indentation_error), pop_indent)
 		);
 
 		in_block = space_break >> *(*set(" \t") >> line_break) >> advance_match >> ensure(Block, pop_indent);
@@ -727,7 +725,6 @@ private:
 	NONE_AST_RULE(pop_indent);
 	NONE_AST_RULE(empty_line_break);
 	NONE_AST_RULE(line);
-	NONE_AST_RULE(statement);
 	NONE_AST_RULE(exponential_operator);
 	NONE_AST_RULE(expo_value);
 	NONE_AST_RULE(expo_exp);
@@ -1338,3 +1335,4 @@ CompileInfo compile(std::string_view codes) {
 }
 
 } // namespace yarnflow
+
