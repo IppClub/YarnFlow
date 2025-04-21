@@ -54,10 +54,10 @@ Narrator: Hi, I'm the narrator for this beginner's guide!
 Narrator: I'm talking to you with Yarn Spinner!
 Narrator: What do you think of all this, then?
 -> It's alright, I guess.
-  <<set $heart to $heart - 1>>
+  <<set $heart -= 1>>
   <<jump Alright>>
 -> It's great. I love it.
-  <<set $heart to $heart + 1>>
+  <<set $heart += 1>>
   <<jump Love>>
 ===
 
@@ -67,10 +67,10 @@ title: Alright
 Narrator: Well, that's not very nice.
 Narrator: I'm trying my best here.
 -> Are you really? I don't think so.
-  <<set $heart to $heart - 1>>
+  <<set $heart -= 1>>
   <<jump Alright>>
 -> Oh, OK. I'm sorry.
-  <<set $heart to $heart + 1>>
+  <<set $heart += 1>>
   <<jump Love>>
 ===
 
@@ -80,11 +80,11 @@ title: Love
 Narrator: Oh, you're too kind.
 Narrator: I'm just doing my job.
 -> You're doing a great job.
-  <<set $heart to $heart + 2>>
+  <<set $heart += 2>>
   Narrator: Oh, stop it, you.
   Narrator: You're making me blush.
 -> You're a natural.
-  <<set $heart to $heart + 3>>
+  <<set $heart += 3>>
   Narrator: Oh, you.
   Narrator: I'm but a humble narrator.
 ===
