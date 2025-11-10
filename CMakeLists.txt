@@ -52,7 +52,7 @@ message(STATUS "Lua library: ${LUA_LIBRARIES}")
 
 enable_language(CXX)
 include_directories(src ${LUA_INCLUDE_DIR})
-add_definitions(-std=c++17 -O3 -fPIC)
+add_definitions(-std=c++20 -O3 -fPIC)
 
 if (APPLE)
 	add_compile_options(-Wno-deprecated-declarations)

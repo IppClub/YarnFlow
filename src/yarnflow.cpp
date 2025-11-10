@@ -1,7 +1,6 @@
 #include "yarnflow/yarn_compiler.h"
 #include "yarnflow_lua.h"
 
-
 #include <string>
 #include <string_view>
 using namespace std::string_literals;
@@ -17,7 +16,16 @@ static int yarn_compile(lua_State* L) {
 	size_t len = 0;
 	const char* str = luaL_checklstring(L, 1, &len);
 	std::string_view codes{str, len};
-	auto res = yarnflow::compile(codes);
+	bool file = false;
+	if (lua_gettop(L) >= 2 && lua_toboolean(L, 2) != 0) {
+		file = true;
+	}
+	yarnflow::CompileInfo res;
+	if (file) {
+		res = yarnflow::compileFile(codes);
+	} else {
+		res = yarnflow::compileNode(codes);
+	}
 	if (res.error) {
 		const auto& error = res.error.value();
 		lua_pushnil(L);
